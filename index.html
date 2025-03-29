@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Pop Zen - Stress Relief</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header">
+        <div class="stats-container">
+            <div class="stat">
+                <span>Score:</span>
+                <span id="score">0</span>
+            </div>
+            <div class="stat">
+                <span>Level:</span>
+                <span id="level">1</span>
+            </div>
+            <div class="stat">
+                <span>Combo:</span>
+                <span id="combo">0</span>
+            </div>
+        </div>
+        <div id="theme-controls">
+            <div id="theme-1" class="theme-btn active"></div>
+            <div id="theme-2" class="theme-btn"></div>
+            <div id="theme-3" class="theme-btn"></div>
+        </div>
+    </div>
+    
+    <div id="game-container"></div>
+    
+    <div id="controls">
+        <button id="pause-button" class="button">Pause</button>
+        <div>
+            <button id="zen-mode" class="button">Zen Mode</button>
+            <button id="challenge-mode" class="button active">Challenge Mode</button>
+        </div>
+        <button id="mute-button" class="button">🔊</button>
+    </div>
+    
+    <div id="level-indicator"></div>
+    
+    <div id="power-meter">
+        <div id="power-fill"></div>
+    </div>
+    <div id="power-button">⚡</div>
+    
+    <div id="modal-overlay">
+        <div id="pause-menu">
+            <h2>Game Paused</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <span>Current Score:</span>
+                    <span id="pause-score">0</span>
+                </div>
+                <div class="stat">
+                    <span>Current Level:</span>
+                    <span id="pause-level">1</span>
+                </div>
+            </div>
+            <button id="resume-button" class="menu-button">Resume Game</button>
+            <button id="restart-button" class="menu-button">Restart Game</button>
+            <button id="toggle-sound-button" class="menu-button">Toggle Sound</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

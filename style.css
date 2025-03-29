@@ -1,0 +1,745 @@
+:root {
+    --primary-color: #2196F3;
+    --accent-color: #FF4081;
+    --light-color: #E1F5FE;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 400% 400%;
+    animation: gradient-bg 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    transition: background 0.5s ease;
+}
+
+@keyframes gradient-bg {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#header {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.bubble:hover {
+    transform: scale(1.1);
+}
+
+.color-1 {
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(33,150,243,0.7));
+}
+
+.color-2 {
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(233,30,99,0.7));
+}
+
+.color-3 {
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(76,175,80,0.7));
+}
+
+.color-4 {
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,193,7,0.7));
+}
+
+.color-5 {
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(156,39,176,0.7));
+}
+
+.golden {
+    background: radial-gradient(circle, rgba(255,255,220,0.95), rgba(255,215,0,0.8));
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+    to { box-shadow: 0 0 25px rgba(255, 215, 0, 1); }
+}
+
+.combo-indicator {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 100;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    animation: float-up 1s forwards;
+}
+
+@keyframes float-up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+}
+
+#controls {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px); */
+}
+
+.button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.button.active {
+    background-color: var(--accent-color);
+}
+
+.bubble-pop {
+    animation: pop 0.3s forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+#theme-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.theme-btn.active {
+    border-color: white;
+    transform: scale(1.1);
+}
+
+#theme-1 {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 200% 200%;
+}
+
+#theme-2 {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    background-size: 200% 200%;
+}
+
+#theme-3 {
+    background: linear-gradient(135deg, #ff6b6b, #556270);
+    background-size: 200% 200%;
+}
+
+#level-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    font-weight: bold;
+    opacity: 0;
+    z-index: 100;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+#level-up {
+    animation: level-up 2s forwards;
+}
+
+@keyframes level-up {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+#power-meter {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 30px;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+#power-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(to top, #f44336, #ff9800, #ffeb3b);
+    transition: height 0.3s;
+    border-radius: 15px;
+}
+
+#power-button {
+    position: fixed;
+    bottom: 8px;
+    left: 75px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s;
+}
+
+#power-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#power-button.active {
+    background: var(--accent-color);
+    animation: pulse-button 1s infinite alternate;
+}
+
+@keyframes pulse-button {
+    from { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+    to { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+}
+
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#pause-menu {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 90%;
+    width: 400px;
+}
+
+#pause-menu h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.menu-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.menu-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .stats-container {
+        font-size: 14px;
+        gap: 10px;
+    }
+    
+    #controls {
+        /* flex-direction: column; */
+        gap: 10px;
+    }
+    
+    #power-meter {
+        bottom: 100px;
+        left: 10px;
+        height: 100px;
+        width: 20px;
+    }
+    
+    #power-button {
+        bottom: 40px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    #theme-controls {
+        gap: 5px;
+    }
+
+    .theme-btn {
+        width: 25px;
+        height: 25px;
+    }
+
+    .button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    #pause-menu {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    #pause-menu h2 {
+        font-size: 24px;
+    }
+
+    .menu-button {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    #level-indicator {
+        font-size: 60px;
+    }
+
+    .combo-indicator {
+        font-size: 20px;
+    }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 601px) and (max-width: 1024px) {
+    #power-meter {
+        bottom: 90px;
+        left: 15px;
+        height: 120px;
+        width: 25px;
+    }
+    
+    #power-button {
+        bottom: 30px;
+        left: 75px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Landscape mode for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    #game-container {
+        height: 70vh;
+    }
+
+    #controls {
+        flex-direction: row;
+    }
+
+    #power-meter {
+        bottom: 60px;
+        left: 10px;
+        height: 80px;
+    }
+    
+    /* #power-button {
+        bottom: 10px;
+        left: 10px;
+    } */
+
+    #header {
+        padding: 5px 15px;
+    }
+
+    #controls {
+        padding: 5px 15px;
+    }
+}
+
+/* SPA Menu Screen */
+#start-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background: inherit;
+    z-index: 2000;
+    color: white;
+    text-align: center;
+}
+
+#start-menu h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.menu-section {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+.menu-section h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.option-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.option-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+    flex: 1;
+}
+
+.option-button:hover, .large-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.option-button.active {
+    background: var(--accent-color);
+}
+
+.theme-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.theme-option.active {
+    border-color: white;
+    transform: scale(1.1);
+}
+
+#menu-theme-1 {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 200% 200%;
+}
+
+#menu-theme-2 {
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    background-size: 200% 200%;
+}
+
+#menu-theme-3 {
+    background: linear-gradient(135deg, #ff6b6b, #556270);
+    background-size: 200% 200%;
+}
+
+.large-button {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 80%;
+    max-width: 300px;
+}
+
+.large-button:active {
+    transform: scale(0.95);
+}
+
+/* End Game Screen */
+#end-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background: inherit;
+    z-index: 2000;
+    color: white;
+    text-align: center;
+}
+
+.score-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 15px 0;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.score-item p {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.end-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Enhanced Mobile UI */
+.icon-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding: 0;
+}
+
+/* Improved Mobile Responsiveness */
+@media (max-width: 600px) {
+    #header {
+        padding: 10px;
+    }
+    
+    #start-menu h1 {
+        font-size: 28px;
+    }
+    
+    .score-item p {
+        font-size: 28px;
+    }
+    
+    .bubble {
+        /* Make bubbles easier to tap on mobile */
+        min-width: 45px;
+        min-height: 45px;
+    }
+    
+    #game-container {
+        height: 75vh;
+    }
+    
+    #controls {
+        padding: 8px 15px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        z-index: 50;
+    }
+    
+    #power-meter {
+        bottom: 70px;
+        left: 10px;
+        width: 15px;
+        height: 100px;
+    }
+    
+    /* #power-button {
+        bottom: 15px;
+        left: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    } */
+    
+    /* Simplified UI for game screen */
+    .stats-container {
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    /* More touch-friendly buttons */
+    .option-button, .large-button {
+        padding: 10px 15px;
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    .theme-option {
+        width: 50px;
+        height: 50px;
+    }
+    
+    /* Better spacing for menu items */
+    .menu-section {
+        margin-bottom: 20px;
+    }
+    
+    /* Prevent zooming when tapping quickly */
+    body {
+        touch-action: manipulation;
+    }
+}
+
+/* Landscape mode optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+    #start-menu, #end-screen {
+        justify-content: flex-start;
+        overflow-y: auto;
+        padding-top: 20px;
+    }
+    
+    .menu-section {
+        margin-bottom: 10px;
+    }
+    
+    #game-container {
+        height: 65vh;
+    }
+    
+    .score-container {
+        margin: 5px 0;
+    }
+    
+    .end-stats {
+        flex-direction: row;
+        gap: 20px;
+    }
+}
+
+/* Tablet optimizations */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .large-button {
+        max-width: 400px;
+    }
+    
+    .theme-option {
+        width: 45px;
+        height: 45px;
+    }
+    
+    #game-container {
+        height: 75vh;
+    }
+    
+    .icon-button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+}
